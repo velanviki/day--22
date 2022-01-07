@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+    
+
+
+</head>
+
+
+<body>
+   
+    <script>
+
+        var h3 = document.createElement("h3");
+        h3.innerText = "Country Flags"
+        h3.style.textAlign = "center"
+        h3.style.fontSize = "50px"
+        h3.style.color = "Red"
+        document.body.appendChild(h3);
+
+        let board = document.createElement("div");
+        board.style.width = "100%";
+        board.style.display = "flex";
+        board.style.direction = 'row';
+        board.style.flexWrap = "wrap";
+        board.style.border = "2px solid black"
+
+
+
+        fetch("https://restcountries.com/v3.1/all")
+            .then(function (data) {
+                return data.json()
+
+            })
+            .then(function (dataList) {
+                console.log(dataList);
+                for (let i = 0; i < dataList.length; i++) {
+
+
+
+                    let box = document.createElement("div")
+                    box.style.width = "498.7px"
+                    box.style.height = "300px"
+                    box.style.border = "1px solid black"
+                    box.style.color = "black"
+
+
+                    var flagBox = document.createElement("div")
+                    flagBox.style.margin = "40px 0px 0px 100px"
+                    var img = document.createElement("img");
+                    img.style.width = "300px"
+                    img.style.height = "150px"
+                    
+                    img.src = dataList[i].flags.png
+                    flagBox.appendChild(img);
+                    box.appendChild(flagBox);
+
+
+
+                    var name = document.createElement("div");
+                    name.style.marginTop = "10px"
+                    // name.style.marginLeft = "180px"
+                    name.style.textAlign="center"
+                  
+                    name.style.fontWeight = "bolder";
+                    name.style.fontSize = "20px"
+                    name.innerText = dataList[i].name.common
+                    box.appendChild(name);
+
+                    var code = document.createElement("div");
+                    code.style.marginTop = "10px"
+                    code.style.marginLeft = "50px"
+                    code.style.fontWeight = "bolder";
+                    code.style.fontSize = "20px";
+                    code.innerText = "CODE - " + dataList[i].cca2
+                    box.appendChild(code);
+
+
+
+
+                    board.appendChild(box)
+                };
+                document.body.appendChild(board)
+            })
+
+        
+                .catch(function (error) {
+                console.log(error)
+            })
+    </script>
+</body>
+
+</html>
